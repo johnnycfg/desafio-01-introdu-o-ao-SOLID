@@ -6,7 +6,15 @@ class ShowUserProfileController {
   constructor(private showUserProfileUseCase: ShowUserProfileUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    // Complete aqui
+    const { user_id } = request.params;
+
+    try {
+      this.showUserProfileUseCase.execute({ user_id });
+
+      return response.status(201).send();
+    } catch (error) {
+      return response.status(400).send(error.message);
+    }
   }
 }
 
